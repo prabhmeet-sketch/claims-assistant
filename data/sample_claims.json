@@ -1,0 +1,37 @@
+[
+  {
+    "claim_id": "CLM-1001",
+    "submitted_text": "My laptop was damaged during shipping on June 20, 2026. I'm requesting a replacement or repair reimbursement. I purchased the extended protection plan when I bought the device in March.",
+    "claimed_amount": 1200,
+    "currency": "USD",
+    "incident_date": "2026-06-20"
+  },
+  {
+    "claim_id": "CLM-1002",
+    "submitted_text": "Requesting reimbursement of $6,500 for water damage to home office equipment after a pipe burst on May 15, 2026. Repair invoice attached.",
+    "claimed_amount": 6500,
+    "currency": "USD",
+    "incident_date": "2026-05-15"
+  },
+  {
+    "claim_id": "CLM-1003",
+    "submitted_text": "I'd like to claim reimbursement for a cancelled business trip. The hotel would not refund because I cancelled less than 48 hours before check-in, but I was told by support the policy allows free cancellation with no time limit.",
+    "claimed_amount": 850,
+    "currency": "USD",
+    "incident_date": "2026-06-01"
+  },
+  {
+    "claim_id": "CLM-1004",
+    "submitted_text": "Filing a claim for my StreamCast Pro X portable projector, damaged in a fall on June 10, 2026. Not sure if this model is covered under my plan.",
+    "claimed_amount": 400,
+    "currency": "USD",
+    "incident_date": "2026-06-10"
+  },
+  {
+    "claim_id": "CLM-1005",
+    "submitted_text": "Something happened to my laptop and now it doesn't work right. Please reimburse me.",
+    "claimed_amount": 900,
+    "currency": "USD",
+    "incident_date": null
+  }
+]
