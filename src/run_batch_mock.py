@@ -123,6 +123,18 @@ def _mock_summary(claim_id, extracted, policy_lookup, interpretation, decision):
     return f"[MOCK SUMMARY] {claim_id}: {decision.outcome} ({decision.escalation_type}) — {decision.reason}"
 
 
+# Expected outcomes live HERE, in the test file, not in the production
+# claims data. sample_claims.json intentionally carries no test scaffolding
+# (see README) — this mapping is the test's own source of truth.
+EXPECTED_OUTCOMES = {
+    "CLM-1001": ("auto_approved", "none"),
+    "CLM-1002": ("escalate", "authorization"),
+    "CLM-1003": ("escalate", "uncertainty"),
+    "CLM-1004": ("escalate", "uncertainty"),
+    "CLM-1005": ("escalate", "uncertainty"),
+}
+
+
 def main():
     orchestrator.extract_claim = _mock_extract_claim
     orchestrator.interpret_claim = _mock_interpret_claim
@@ -135,22 +147,15 @@ def main():
     all_pass = True
     for claim in claims:
         packet = orchestrator.process_claim(claim)
-        expected = claim.get("expected_outcome", "")
-
-        outcome_map = {
-            "auto_approve": ("auto_approved", "none"),
-            "escalate_authorization": ("escalate", "authorization"),
-            "escalate_conflict": ("escalate", "uncertainty"),
-            "escalate_evidence_gap": ("escalate", "uncertainty"),
-            "escalate_low_confidence": ("escalate", "uncertainty"),
-        }
-        expected_decision, expected_esc_type = outcome_map.get(expected, (None, None))
+        expected_decision, expected_esc_type = EXPECTED_OUTCOMES.get(
+            claim["claim_id"], (None, None)
+        )
         matched = (packet["decision"] == expected_decision and packet["escalation_type"] == expected_esc_type)
-        all_pass = all_pass and (matched if expected else True)
+        all_pass = all_pass and matched
 
         print(f"{claim['claim_id']}: got={packet['decision']}/{packet['escalation_type']}  "
               f"expected={expected_decision}/{expected_esc_type}  "
-              f"{'PASS' if matched else 'N/A' if not expected else 'FAIL'}")
+              f"{'PASS' if matched else 'FAIL'}")
         results.append(packet)
 
     os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
